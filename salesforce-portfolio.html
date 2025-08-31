@@ -1,0 +1,1280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preetham Gattu - Salesforce Developer | Lightning Platform Expert</title>
+    <meta name="description" content="Senior Salesforce Developer with 3+ years specializing in Lightning Web Components, Apex, and Platform Development. Certified Administrator & Developer.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables - Salesforce Lightning Design System Colors */
+        :root {
+            --sf-blue-primary: #0176D3;
+            --sf-blue-dark: #032E61;
+            --sf-blue-light: #E3F3FF;
+            --sf-blue-medium: #0B5CAB;
+            --sf-gray-1: #F3F2F2;
+            --sf-gray-2: #ECEBEA;
+            --sf-gray-3: #DDDBDA;
+            --sf-gray-8: #514F4D;
+            --sf-gray-10: #181818;
+            --sf-white: #FFFFFF;
+            --sf-success: #04844B;
+            --sf-warning: #FE9339;
+            --sf-text-primary: #181818;
+            --sf-text-secondary: #514F4D;
+            --lightning-gradient: linear-gradient(135deg, #0176D3 0%, #032E61 100%);
+            --cloud-gradient: linear-gradient(to bottom, #E3F3FF 0%, #FFFFFF 100%);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--sf-text-primary);
+            background: var(--sf-white);
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--sf-gray-2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--sf-blue-primary);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--lightning-gradient);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--sf-text-secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--sf-blue-primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--lightning-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--lightning-gradient);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .typing-text {
+            color: #4FC3F7;
+            font-weight: 600;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--sf-blue-primary);
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--sf-text-primary);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--sf-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--cloud-gradient);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--sf-text-secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--sf-blue-primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--sf-text-secondary);
+            font-weight: 500;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid var(--sf-gray-2);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--lightning-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-role {
+            color: var(--sf-text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--sf-gray-2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--sf-blue-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--sf-text-primary);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--sf-gray-2);
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+
+        .skill-check {
+            width: 20px;
+            height: 20px;
+            background: var(--sf-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: var(--sf-gray-1);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--sf-gray-2);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-header {
+            background: var(--lightning-gradient);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-description {
+            color: var(--sf-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--sf-blue-light);
+            color: var(--sf-blue-primary);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--sf-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 12px;
+        }
+
+        /* Certifications Section */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--sf-gray-2);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--lightning-gradient);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .cert-badge {
+            width: 80px;
+            height: 80px;
+            background: var(--lightning-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .cert-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            color: var(--sf-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--cloud-gradient);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--sf-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--sf-text-primary);
+            border: 1px solid var(--sf-gray-2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--sf-blue-primary);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--sf-gray-2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--sf-text-primary);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--sf-gray-2);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--sf-blue-primary);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--lightning-gradient);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(1, 118, 211, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--sf-gray-10);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .footer-link {
+            color: var(--sf-blue-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                justify-content: center;
+            }
+
+            .skills-grid,
+            .projects-grid,
+            .certs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>Preetham Gattu</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-badge">
+                    ☁️ Salesforce Platform Developer
+                </div>
+                <h1 class="hero-title">
+                    <span class="typing-text" id="typing-text">Turning clicks into magic with LWC</span>
+                    <span class="cursor">|</span>
+                </h1>
+                <p class="hero-subtitle">
+                    3+ years crafting enterprise solutions on the Salesforce Lightning Platform
+                </p>
+                <a href="#contact" class="hero-cta">
+                    Let's Build Something Amazing
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    Passionate Salesforce Developer with expertise in Lightning Platform development
+                </p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Welcome to my digital workspace! I'm <strong>Preetham Gattu</strong>, a dedicated Salesforce Developer 
+                        with 3+ years of experience building scalable, enterprise-grade solutions on the Lightning Platform. 
+                        I specialize in Lightning Web Components, Apex development, and creating seamless automation flows 
+                        that drive business transformation.
+                    </p>
+                    <p>
+                        My journey in the Salesforce ecosystem has taught me that great solutions aren't just about clean code—they're 
+                        about understanding business needs and translating them into intuitive, powerful applications that empower users 
+                        and drive organizational success.
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects Delivered</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Client Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-avatar">PG</div>
+                    <h3 class="profile-name">Preetham Gattu</h3>
+                    <p class="profile-role">Senior Salesforce Developer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Expertise</h2>
+                <p class="section-subtitle">
+                    Comprehensive Salesforce platform skills across development, administration, and automation
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category fade-in">
+                    <div class="skill-header">
+                        <div class="skill-icon">⚡</div>
+                        <h3 class="skill-title">Lightning Development</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Lightning Web Components (LWC)</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Lightning Design System</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Lightning App Builder</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Lightning Experience</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category fade-in">
+                    <div class="skill-header">
+                        <div class="skill-icon">🚀</div>
+                        <h3 class="skill-title">Platform Development</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Apex Programming</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>SOQL & SOSL</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Triggers & Batch Processing</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>REST/SOAP APIs</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category fade-in">
+                    <div class="skill-header">
+                        <div class="skill-icon">🔧</div>
+                        <h3 class="skill-title">Administration & Config</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Custom Objects & Fields</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Process Builder & Flow</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Security & Permissions</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Reports & Dashboards</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category fade-in">
+                    <div class="skill-header">
+                        <div class="skill-icon">🤖</div>
+                        <h3 class="skill-title">Modern Tools</h3>
+                    </div>
+                    <ul class="skill-list">
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Agentforce AI</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>VS Code with SFDX</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>Git Version Control</span>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-check">✓</div>
+                            <span>DevOps & CI/CD</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">
+                    Real-world Salesforce implementations that drive business transformation
+                </p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <div class="project-icon">💼</div>
+                        <h3 class="project-title">Enterprise Job Portal</h3>
+                        <p class="project-type">Lightning Platform Application</p>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Comprehensive job portal built with Lightning Web Components, featuring automated applicant tracking, 
+                            interview scheduling, and integration with external job boards. Reduced hiring time by 40%.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">LWC</span>
+                            <span class="tech-tag">Apex</span>
+                            <span class="tech-tag">Flow</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            View Project →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <div class="project-icon">💝</div>
+                        <h3 class="project-title">Nonprofit CRM Solution</h3>
+                        <p class="project-type">NPSP Implementation</p>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Advanced donor management system using Nonprofit Success Pack with custom donation tracking, 
+                            automated thank-you processes, and comprehensive reporting dashboard. Increased donor retention by 35%.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">NPSP</span>
+                            <span class="tech-tag">Reports</span>
+                            <span class="tech-tag">Dashboards</span>
+                            <span class="tech-tag">Process Builder</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            View Project →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <div class="project-icon">🤖</div>
+                        <h3 class="project-title">AI-Powered CRM Assistant</h3>
+                        <p class="project-type">Agentforce Integration</p>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Intelligent CRM solution leveraging Agentforce AI for predictive lead scoring, automated case routing, 
+                            and personalized customer communications. Improved sales conversion rates by 25%.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Agentforce</span>
+                            <span class="tech-tag">Einstein AI</span>
+                            <span class="tech-tag">Flow</span>
+                            <span class="tech-tag">LWC</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            View Project →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Certifications & Credentials</h2>
+                <p class="section-subtitle">
+                    Validated expertise in Salesforce platform development and administration
+                </p>
+            </div>
+            <div class="certs-grid">
+                <div class="cert-card fade-in">
+                    <div class="cert-badge">🛡️</div>
+                    <h3 class="cert-title">Salesforce Certified Administrator</h3>
+                    <p class="cert-issuer">Salesforce</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-badge">🔨</div>
+                    <h3 class="cert-title">Platform App Builder</h3>
+                    <p class="cert-issuer">Salesforce</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-badge">💻</div>
+                    <h3 class="cert-title">Platform Developer I</h3>
+                    <p class="cert-issuer">Salesforce</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-badge">⚡</div>
+                    <h3 class="cert-title">Lightning Experience Specialist</h3>
+                    <p class="cert-issuer">Salesforce</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">
+                    Ready to discuss your next Salesforce project? Let's build something amazing together.
+                </p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>
+                        Whether you need a Lightning Web Component expert, an Apex developer, or someone to architect 
+                        your next Salesforce implementation, I'm here to help turn your vision into reality.
+                    </p>
+                    <div class="contact-links">
+                        <a href="mailto:preetham@example.com" class="contact-link">
+                            <span>📧</span>
+                            preetham@example.com
+                        </a>
+                        <a href="https://linkedin.com/in/preethamgattu" target="_blank" rel="noopener" class="contact-link">
+                            <span>💼</span>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/preethamgattu" target="_blank" rel="noopener" class="contact-link">
+                            <span>🔗</span>
+                            GitHub Portfolio
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Project Details</label>
+                        <textarea id="message" name="message" rows="4" class="form-textarea" 
+                                  placeholder="Tell me about your Salesforce project..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 Preetham Gattu - Built with ⚡ on the Salesforce Platform</p>
+            <a href="#home" class="footer-link">Back to the Cloud ☁️</a>
+        </div>
+    </footer>
+
+    <script>
+        // Console messages for recruiters
+        console.log("⚡ Welcome to Preetham's Salesforce Portfolio!");
+        console.log("🚀 Looking for a Lightning Platform expert?");
+        console.log("📧 Contact: preetham@example.com");
+        console.log("💼 Let's build something amazing together!");
+
+        // Typing animation
+        const typingElement = document.getElementById('typing-text');
+        const phrases = [
+            "Turning clicks into magic with LWC ⚡",
+            "Lightning Platform Expert 🚀",
+            "Apex Code Architect 🏗️",
+            "Flow Automation Wizard 🧙‍♂️",
+            "Salesforce Solution Builder ☁️"
+        ];
+
+        let currentPhrase = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const text = phrases[currentPhrase];
+            
+            if (isDeleting) {
+                currentChar--;
+                typingElement.textContent = text.substring(0, currentChar);
+                
+                if (currentChar === 0) {
+                    isDeleting = false;
+                    currentPhrase = (currentPhrase + 1) % phrases.length;
+                    setTimeout(typeWriter, 500);
+                    return;
+                }
+            } else {
+                currentChar++;
+                typingElement.textContent = text.substring(0, currentChar);
+                
+                if (currentChar === text.length) {
+                    isDeleting = true;
+                    setTimeout(typeWriter, 2000);
+                    return;
+                }
+            }
+            
+            setTimeout(typeWriter, isDeleting ? 50 : 100);
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.getElementById('navbar').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScrollY = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.pageYOffset;
+            
+            if (currentScrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Simple validation
+            if (!name || !email || !message) {
+                alert('Please fill in all fields! 📝');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending... 📤';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.textContent = 'Message Sent! ✅';
+                
+                // Reset form
+                this.reset();
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+                
+                console.log('Form submitted:', { name, email, message });
+                alert(`Thanks ${name}! Your message has been sent. I'll get back to you soon! 🚀`);
+                
+            }, 2000);
+        });
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start typing animation
+            setTimeout(typeWriter, 1000);
+            
+            // Observe elements for scroll animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            console.log('⚡ Portfolio loaded successfully!');
+        });
+
+        // Add some interactivity to skill cards
+        document.querySelectorAll('.skill-category').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderColor = 'var(--sf-blue-primary)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderColor = 'var(--sf-gray-2)';
+            });
+        });
+
+        // Project card interactions
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const header = this.querySelector('.project-header');
+                header.style.background = 'linear-gradient(135deg, #0B5CAB 0%, #032E61 100%)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const header = this.querySelector('.project-header');
+                header.style.background = 'var(--lightning-gradient)';
+            });
+        });
+    </script>
+</body>
+</html>
