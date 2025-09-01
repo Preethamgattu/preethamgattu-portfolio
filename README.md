@@ -1,7 +1,7 @@
 
 ## Project info
 
-**URL**: 
+**URL**: https://preethamgattu.github.io/preethamgattu-portfolio/
 
 ## How can I edit this code?
 
