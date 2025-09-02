@@ -2,12 +2,25 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import jsforce from "jsforce"; // Salesforce SDK
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
 let conn = null;
+
+// ⚡ Required for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ✅ Serve React frontend build
+app.use(express.static(path.join(__dirname, "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 // 🔹 OAuth callback (Salesforce redirects here after login)
 app.get("/oauth/callback", async (req, res) => {
@@ -18,7 +31,7 @@ app.get("/oauth/callback", async (req, res) => {
       loginUrl: "https://login.salesforce.com", // or test.salesforce.com for sandbox
       clientId: process.env.SF_CLIENT_ID,
       clientSecret: process.env.SF_CLIENT_SECRET,
-      redirectUri: process.env.SF_CALLBACK_URL, // e.g., https://your-app.onrender.com/oauth/callback
+      redirectUri: process.env.SF_CALLBACK_URL,
     },
   });
 
