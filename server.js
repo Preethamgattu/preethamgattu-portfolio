@@ -18,10 +18,6 @@ const __dirname = path.dirname(__filename);
 // ✅ Serve React frontend build
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
-
 // 🔹 OAuth callback (Salesforce redirects here after login)
 app.get("/oauth/callback", async (req, res) => {
   const { code } = req.query;
@@ -64,6 +60,11 @@ app.post("/api/create-lead", async (req, res) => {
     console.error(err);
     res.status(500).json({ success: false, error: err });
   }
+});
+
+// 🔹 Serve React SPA for all other routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
