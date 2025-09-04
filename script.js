@@ -1,3 +1,4 @@
+
 // Console messages for recruiters
 console.log("👋 Hello recruiter! You've unlocked Dev Mode.");
 console.log("Need a Salesforce wizard? Contact → preetham@example.com");
@@ -130,12 +131,6 @@ themeToggle.addEventListener('click', function() {
     } else {
         themeIcon.classList.replace('fa-sun', 'fa-moon');
     }
-
-    // Update hero icon glow dynamically
-    const glowColor = getGlowColor();
-    floatingIcons.forEach(icon => {
-        icon.style.boxShadow = `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`;
-    });
 });
 
 // Custom cursor
@@ -202,16 +197,19 @@ const contactForm = document.getElementById('contact-form');
 contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Get form data
     const formData = new FormData(contactForm);
     const name = formData.get('name');
     const email = formData.get('email');
     const message = formData.get('message');
     
+    // Simple validation
     if (!name || !email || !message) {
         alert('Please fill in all fields! 📝');
         return;
     }
     
+    // Simulate form submission
     const submitButton = contactForm.querySelector('.submit-button');
     const originalText = submitButton.textContent;
     
@@ -220,81 +218,115 @@ contactForm.addEventListener('submit', function(e) {
     
     setTimeout(() => {
         submitButton.textContent = 'Message Sent! ✅';
+        
+        // Reset form
         contactForm.reset();
+        
         setTimeout(() => {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
         }, 2000);
+        
+        // Log to console for demo purposes
+        console.log('Form submitted:', { name, email, message });
+        
+        // Show success message
         alert(`Thanks ${name}! Your message has been sent. I'll get back to you soon! 🚀`);
+        
     }, 2000);
 });
 
 // Download resume functionality
 const downloadResumeButton = document.getElementById('download-resume');
+
 downloadResumeButton.addEventListener('click', function(e) {
     e.preventDefault();
-    alert('Resume download would start here! 📄');
+    
+    // In a real application, this would download an actual resume file
+    // For demo purposes, we'll just show an alert
+    alert('Resume download would start here! 📄\n\nIn a real application, this would download Preetham\'s resume PDF.');
+    
+    // Log the action
     console.log('Resume download requested');
 });
 
-// Hero floating icons with glow
-function getGlowColor() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    return currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(59, 130, 246, 0.6)';
-}
-
-const floatingIcons = document.querySelectorAll('.floating-icon');
-floatingIcons.forEach((icon, index) => {
-    icon.classList.add('animate-float'); 
-    icon.style.animationDelay = `${index * 1.5}s`;
-    icon.style.fontSize = '3rem';
-    icon.style.zIndex = '2';
-    icon.style.display = 'inline-block';
-    icon.style.background = 'rgba(255, 255, 255, 0.2)';
-    icon.style.borderRadius = '50%';
-    icon.style.padding = '0.5rem';
-    icon.style.textShadow = '0 0 10px rgba(0,0,0,0.3), 0 0 5px rgba(0,0,0,0.2)';
-    icon.style.boxShadow = `0 0 20px ${getGlowColor()}, 0 0 40px ${getGlowColor()}`;
-});
-
-// Hover sparkle effect for skill cards
-const skillCards = document.querySelectorAll('.skill-card');
-skillCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        const sparkle = document.createElement('div');
-        sparkle.innerHTML = '✨';
-        sparkle.style.position = 'absolute';
-        sparkle.style.top = Math.random() * 100 + '%';
-        sparkle.style.left = Math.random() * 100 + '%';
-        sparkle.style.fontSize = '1.5rem';
-        sparkle.style.animation = 'sparkle 1s ease forwards';
-        sparkle.style.pointerEvents = 'none';
-        sparkle.style.zIndex = '10';
-        this.style.position = 'relative';
-        this.appendChild(sparkle);
-        setTimeout(() => {
-            if (sparkle.parentNode) sparkle.remove();
-        }, 1000);
+// Add some fun interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click sound effect (visual feedback)
+    const clickableElements = document.querySelectorAll('button, .nav-link, .cta-button, .resume-button, .contact-link');
+    
+    clickableElements.forEach(element => {
+        element.addEventListener('click', function() {
+            // Add a subtle animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+    });
+    
+    // Add floating animation to hero icons
+    const floatingIcons = document.querySelectorAll('.floating-icon');
+    floatingIcons.forEach((icon, index) => {
+        icon.style.animationDelay = `${index * 2}s`;
+    });
+    
+    // Add random sparkle effect to skill cards
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Add sparkle effect
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'absolute';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.fontSize = '1.5rem';
+            sparkle.style.animation = 'sparkle 1s ease forwards';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '10';
+            
+            this.style.position = 'relative';
+            this.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.remove();
+                }
+            }, 1000);
+        });
     });
 });
 
-// Sparkle animation
+// Add sparkle animation to CSS dynamically
 const style = document.createElement('style');
 style.textContent = `
-@keyframes sparkle {
-    0% { opacity: 0; transform: scale(0) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1) rotate(180deg); }
-    100% { opacity: 0; transform: scale(0) rotate(360deg); }
-}`;
+    @keyframes sparkle {
+        0% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1) rotate(180deg);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0) rotate(360deg);
+        }
+    }
+`;
 document.head.appendChild(style);
 
-// Easter eggs
+// Add some Easter eggs
 let clickCount = 0;
 const logo = document.querySelector('.nav-logo');
+
 logo.addEventListener('click', function() {
     clickCount++;
+    
     if (clickCount === 5) {
-        alert('🎉 You found an Easter egg!');
+        alert('🎉 You found an Easter egg! You\'re persistent - that\'s exactly what we need in a great developer!');
         clickCount = 0;
     }
 });
@@ -302,52 +334,72 @@ logo.addEventListener('click', function() {
 // Konami code Easter egg
 let konamiCode = [];
 const konamiSequence = [
-    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
-    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
-    'KeyB','KeyA'
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
 ];
+
 document.addEventListener('keydown', function(e) {
     konamiCode.push(e.code);
-    if (konamiCode.length > konamiSequence.length) konamiCode.shift();
+    
+    if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+    }
+    
     if (konamiCode.join(',') === konamiSequence.join(',')) {
         document.body.style.animation = 'rainbow 2s ease infinite';
-        alert('🌈 KONAMI CODE ACTIVATED!');
-        setTimeout(() => { document.body.style.animation = ''; }, 4000);
+        alert('🌈 KONAMI CODE ACTIVATED! You\'re definitely developer material!');
+        
+        setTimeout(() => {
+            document.body.style.animation = '';
+        }, 4000);
+        
         konamiCode = [];
     }
 });
 
-// Rainbow animation
+// Add rainbow animation
 const rainbowStyle = document.createElement('style');
 rainbowStyle.textContent = `
-@keyframes rainbow {
-    0% { filter: hue-rotate(0deg); }
-    25% { filter: hue-rotate(90deg); }
-    50% { filter: hue-rotate(180deg); }
-    75% { filter: hue-rotate(270deg); }
-    100% { filter: hue-rotate(360deg); }
-}`;
+    @keyframes rainbow {
+        0% { filter: hue-rotate(0deg); }
+        25% { filter: hue-rotate(90deg); }
+        50% { filter: hue-rotate(180deg); }
+        75% { filter: hue-rotate(270deg); }
+        100% { filter: hue-rotate(360deg); }
+    }
+`;
 document.head.appendChild(rainbowStyle);
 
-// Debounce function
+// Performance optimization: Debounce scroll events
 function debounce(func, wait) {
     let timeout;
-    return function(...args) {
-        const later = () => { clearTimeout(timeout); func(...args); };
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
 }
-const debouncedScrollHandler = debounce(function(){}, 10);
+
+// Apply debounce to scroll-heavy functions
+const debouncedScrollHandler = debounce(function() {
+    // Any heavy scroll calculations can go here
+}, 10);
+
 window.addEventListener('scroll', debouncedScrollHandler);
 
-// Preload fonts
+// Preload critical resources
 document.addEventListener('DOMContentLoaded', function() {
+    // Preload Google Fonts
     const fontLink = document.createElement('link');
     fontLink.rel = 'preload';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap';
     fontLink.as = 'style';
     document.head.appendChild(fontLink);
+    
     console.log('🚀 Portfolio loaded successfully!');
     console.log('💡 Pro tip: Try the Konami code for a surprise!');
 });
