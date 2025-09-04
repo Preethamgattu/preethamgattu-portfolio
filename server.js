@@ -63,9 +63,10 @@ app.post("/api/create-lead", async (req, res) => {
 });
 
 // 🔹 Serve React SPA for all other routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
+app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "dist", "index.html"));
+  });
+  
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
