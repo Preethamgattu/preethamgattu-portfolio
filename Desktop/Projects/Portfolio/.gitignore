@@ -1,1 +1,4 @@
-Desktop/Projects/Portfolio/preethamportfolio/portfolio/
+node_modules/
+.DS_Store
+*.log
+.env
