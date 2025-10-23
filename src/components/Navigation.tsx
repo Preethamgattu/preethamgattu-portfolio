@@ -47,7 +47,7 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="font-mono font-semibold text-xl text-foreground">
-            Alex Chen
+            Preetham Gattu
           </div>
           
           <div className="hidden md:flex space-x-8">
@@ -68,7 +68,7 @@ const Navigation = () => {
           </div>
 
           <div className="md:hidden">
-            <button className="text-foreground">
+            <button className="text-foreground" title="Menu">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
