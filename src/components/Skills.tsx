@@ -1,19 +1,25 @@
 
 import { useState, useEffect, useRef } from 'react';
+import { skills as skillsData, skillCategories } from '../data/skills';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [animatedSkills, setAnimatedSkills] = useState<Set<string>>(new Set());
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const skills = [
-    { name: 'Apex', level: 90, icon: '⚡', description: 'Advanced server-side logic & triggers', category: 'development' },
-    { name: 'Lightning Components', level: 85, icon: '🌩️', description: 'Modern UI framework expertise', category: 'development' },
-    { name: 'Visualforce', level: 80, icon: '👁️', description: 'Custom page development', category: 'development' },
-    { name: 'SOQL/SOSL', level: 95, icon: '🔍', description: 'Database query optimization', category: 'development' },
-    { name: 'Integration APIs', level: 75, icon: '🔗', description: 'REST/SOAP web services', category: 'integration' },
-    { name: 'Process Builder', level: 88, icon: '⚙️', description: 'Workflow automation', category: 'automation' }
-  ];
+  // Use technical skills for the main display
+  const technicalSkills = skillCategories.technical.slice(0, 6); // Limit to 6 for display
+
+  // Helper function to convert skill level to percentage
+  const getProficiencyLevel = (level: string): number => {
+    switch (level) {
+      case 'beginner': return 60;
+      case 'intermediate': return 75;
+      case 'advanced': return 85;
+      case 'expert': return 95;
+      default: return 70;
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -21,7 +27,7 @@ const Skills = () => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           // Animate skills progressively
-          skills.forEach((skill, index) => {
+          technicalSkills.forEach((skill, index) => {
             setTimeout(() => {
               setAnimatedSkills(prev => new Set([...prev, skill.name]));
             }, index * 200);
@@ -57,7 +63,7 @@ const Skills = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill, index) => (
+          {technicalSkills.map((skill, index) => (
             <div
               key={skill.name}
               className={`professional-card hover-lift transform transition-all duration-700 ${
@@ -69,7 +75,7 @@ const Skills = () => {
               }}
             >
               <div className="flex items-center mb-4">
-                <span className="text-3xl mr-4 animate-pulse">{skill.icon}</span>
+                <span className="text-3xl mr-4 animate-pulse">{skill.icon || '⚡'}</span>
                 <div>
                   <h3 className="text-xl font-semibold text-foreground">
                     {skill.name}
@@ -79,20 +85,20 @@ const Skills = () => {
                   </p>
                 </div>
               </div>
-              
+
               <div className="relative">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-muted-foreground">Proficiency</span>
                   <span className="font-mono text-sm text-primary font-semibold">
-                    {animatedSkills.has(skill.name) ? skill.level : 0}%
+                    {animatedSkills.has(skill.name) ? getProficiencyLevel(skill.level) : 0}%
                   </span>
                 </div>
-                
+
                 <div className="progress-bar">
                   <div
                     className="progress-fill transition-all duration-1000 ease-out"
                     style={{
-                      width: animatedSkills.has(skill.name) ? `${skill.level}%` : '0%',
+                      width: animatedSkills.has(skill.name) ? `${getProficiencyLevel(skill.level)}%` : '0%',
                       transitionDelay: `${index * 0.2}s`
                     }}
                   />

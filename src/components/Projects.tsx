@@ -1,53 +1,15 @@
 
 import { useState, useEffect, useRef } from 'react';
+import { projects } from '../data/projects';
+import { Project } from '../data/projects';
 
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Enterprise Sales Automation',
-      description: 'Built comprehensive sales pipeline automation reducing manual work by 60% and increasing conversion rates by 35%.',
-      tech: ['Apex', 'Lightning Components', 'Process Builder', 'Integration'],
-      impact: ['60% reduction in manual tasks', '35% increase in conversion', '$2M additional revenue'],
-      demoUrl: '#',
-      codeUrl: '#',
-      gradient: 'from-blue-500 to-purple-600'
-    },
-    {
-      id: 2,
-      title: 'Customer Service Portal',
-      description: 'Developed self-service portal with real-time case tracking, reducing support tickets by 45% and improving satisfaction scores.',
-      tech: ['Visualforce', 'Apex', 'Lightning Experience', 'Communities'],
-      impact: ['45% reduction in tickets', '4.7/5 satisfaction score', '50% faster resolution'],
-      demoUrl: '#',
-      codeUrl: '#',
-      gradient: 'from-green-500 to-teal-600'
-    },
-    {
-      id: 3,
-      title: 'Multi-System Integration Hub',
-      description: 'Architected real-time data synchronization between Salesforce, ERP, and marketing platforms serving 10K+ users.',
-      tech: ['REST APIs', 'SOAP', 'Apex Callouts', 'Platform Events'],
-      impact: ['Real-time sync for 10K users', '99.9% uptime achieved', '80% faster data processing'],
-      demoUrl: '#',
-      codeUrl: '#',
-      gradient: 'from-orange-500 to-red-600'
-    },
-    {
-      id: 4,
-      title: 'Advanced Analytics Dashboard',
-      description: 'Created executive dashboard with predictive analytics and custom KPIs, enabling data-driven decision making.',
-      tech: ['Lightning Components', 'Apex', 'Einstein Analytics', 'Custom Objects'],
-      impact: ['25% improvement in forecasting', 'Real-time executive insights', '90% adoption rate'],
-      demoUrl: '#',
-      codeUrl: '#',
-      gradient: 'from-purple-500 to-indigo-600'
-    }
-  ];
+  // Filter to show only featured projects
+  const featuredProjects = projects.filter(project => project.featured);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,20 +48,20 @@ const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <div
               key={project.id}
               className={`professional-card hover-lift bg-white transform transition-all duration-700 hover:scale-105 hover:shadow-2xl ${
                 isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
               }`}
-              style={{ 
+              style={{
                 animationDelay: `${index * 0.2}s`,
                 transitionDelay: `${index * 0.1}s`
               }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              <div className={`relative h-48 bg-gradient-to-br ${project.gradient} rounded-lg overflow-hidden mb-6 transform transition-all duration-500 ${
+              <div className={`relative h-48 bg-gradient-to-br ${project.gradient || 'from-blue-500 to-purple-600'} rounded-lg overflow-hidden mb-6 transform transition-all duration-500 ${
                 hoveredProject === project.id ? 'scale-105' : ''
               }`}>
                 <div className="absolute inset-0 bg-black/20"></div>
@@ -135,7 +97,7 @@ const Projects = () => {
               <div className="mb-4">
                 <h4 className="font-semibold text-foreground mb-2 text-sm">Technologies:</h4>
                 <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
+                  {project.technologies.map((tech, techIndex) => (
                     <span
                       key={tech}
                       className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium transform transition-all duration-300 hover:scale-110 hover:bg-primary/20 animate-fade-in-up"
@@ -147,17 +109,19 @@ const Projects = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h4 className="font-semibold text-foreground mb-2 text-sm">Business Impact:</h4>
-                <ul className="space-y-1">
-                  {project.impact.map((impact, impactIndex) => (
-                    <li key={impactIndex} className="text-sm text-muted-foreground flex items-center animate-slide-in-left" style={{ animationDelay: `${impactIndex * 0.1}s` }}>
-                      <span className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></span>
-                      {impact}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {project.impact && (
+                <div className="mb-6">
+                  <h4 className="font-semibold text-foreground mb-2 text-sm">Business Impact:</h4>
+                  <ul className="space-y-1">
+                    {project.impact.map((impact, impactIndex) => (
+                      <li key={impactIndex} className="text-sm text-muted-foreground flex items-center animate-slide-in-left" style={{ animationDelay: `${impactIndex * 0.1}s` }}>
+                        <span className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse"></span>
+                        {impact}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <div className="flex gap-3">
                 <button className="flex-1 px-4 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
@@ -169,7 +133,7 @@ const Projects = () => {
               </div>
 
               {/* Animated border */}
-              <div className={`absolute inset-0 rounded-lg border-2 border-transparent bg-gradient-to-r ${project.gradient} opacity-0 transition-opacity duration-300 ${
+              <div className={`absolute inset-0 rounded-lg border-2 border-transparent bg-gradient-to-r ${project.gradient || 'from-blue-500 to-purple-600'} opacity-0 transition-opacity duration-300 ${
                 hoveredProject === project.id ? 'opacity-20' : ''
               }`} style={{ padding: '2px', zIndex: -1 }}>
                 <div className="bg-white rounded-lg h-full w-full"></div>

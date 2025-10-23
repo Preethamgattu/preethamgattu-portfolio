@@ -1,9 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Professional design system with clean colors */
 @layer base {
@@ -27,7 +27,7 @@
     --muted-foreground: 220 9% 46%;
 
     --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: hsl(0 0% 100%);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;

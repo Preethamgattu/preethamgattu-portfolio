@@ -1,39 +1,17 @@
 
+import { featuredCertifications } from '../data/certifications';
+
 const Certifications = () => {
-  const certifications = [
-    {
-      title: 'Platform Developer I',
-      issuer: 'Salesforce',
-      date: '2023',
-      credentialId: 'SF-PDI-2023-AC789',
-      status: 'Active',
-      icon: '🏆'
-    },
-    {
-      title: 'Administrator',
-      issuer: 'Salesforce',
-      date: '2022',
-      credentialId: 'SF-ADM-2022-AC456',
-      status: 'Active',
-      icon: '⚙️'
-    },
-    {
-      title: 'Advanced Administrator',
-      issuer: 'Salesforce',
-      date: '2023',
-      credentialId: 'SF-AADM-2023-AC123',
-      status: 'Active',
-      icon: '🔧'
-    },
-    {
-      title: 'App Builder',
-      issuer: 'Salesforce',
-      date: '2022',
-      credentialId: 'SF-AB-2022-AC321',
-      status: 'Active',
-      icon: '🏗️'
-    }
-  ];
+  const certifications = featuredCertifications.map(cert => ({
+    title: cert.name,
+    issuer: cert.issuer,
+    date: new Date(cert.issueDate).getFullYear().toString(),
+    credentialId: cert.credentialId || '',
+    status: 'Active',
+    icon: '🏆',
+    description: cert.description,
+    credentialUrl: cert.credentialUrl
+  }));
 
   return (
     <section id="certifications" className="py-20 bg-white">
@@ -62,25 +40,35 @@ const Certifications = () => {
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 {cert.title}
               </h3>
-              
+
               <p className="text-muted-foreground mb-2">
                 {cert.issuer}
               </p>
-              
+
               <p className="text-sm text-muted-foreground mb-3">
                 Issued: {cert.date}
               </p>
-              
+
               <div className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full mb-4">
                 <span className="text-xs font-medium">
                   {cert.status}
                 </span>
               </div>
-              
+
               <div className="pt-4 border-t">
-                <p className="font-mono text-xs text-muted-foreground">
+                <p className="font-mono text-xs text-muted-foreground mb-2">
                   ID: {cert.credentialId}
                 </p>
+                {cert.credentialUrl && (
+                  <a
+                    href={cert.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-primary hover:underline"
+                  >
+                    Verify Credential →
+                  </a>
+                )}
               </div>
             </div>
           ))}

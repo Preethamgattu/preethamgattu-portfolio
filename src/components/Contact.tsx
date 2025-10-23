@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { personalInfo, socialLinks } from '../data/personal';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,15 +15,31 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log('Form submitted:', formData);
-    setIsSubmitting(false);
-    
-    // Reset form
-    setFormData({ name: '', email: '', company: '', message: '' });
+
+    try {
+      // Basic validation
+      if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        throw new Error('Please enter a valid email address');
+      }
+
+      // In a real application, this would send to a backend API
+      // For now, we'll simulate the submission
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Reset form on success
+      setFormData({ name: '', email: '', company: '', message: '' });
+      alert('Thank you for your message! I\'ll get back to you soon.');
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -60,29 +77,30 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-rajdhani text-sm text-foreground/60">Email Protocol</p>
-                      <p className="font-rajdhani text-lg text-primary">alex.chen@sfdev.pro</p>
+                      <a href={`mailto:${personalInfo.email}`} className="font-rajdhani text-lg text-primary hover:underline">
+                        {personalInfo.email}
+                      </a>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center border border-secondary/30">
-                      <span className="text-secondary text-xl">💼</span>
+
+                  {socialLinks.map((social) => (
+                    <div key={social.platform} className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center border border-secondary/30">
+                        <span className="text-secondary text-xl">{social.icon}</span>
+                      </div>
+                      <div>
+                        <p className="font-rajdhani text-sm text-foreground/60">{social.platform}</p>
+                        <a
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-rajdhani text-lg text-secondary hover:underline"
+                        >
+                          {social.url.replace('https://', '').replace('http://', '')}
+                        </a>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-rajdhani text-sm text-foreground/60">Professional Network</p>
-                      <p className="font-rajdhani text-lg text-secondary">linkedin.com/in/alexchen-sf</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center border border-accent/30">
-                      <span className="text-accent text-xl">🌐</span>
-                    </div>
-                    <div>
-                      <p className="font-rajdhani text-sm text-foreground/60">Code Repository</p>
-                      <p className="font-rajdhani text-lg text-accent">github.com/alexchen-sf</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -186,10 +204,10 @@ const Contact = () => {
         {/* Footer */}
         <div className="mt-20 pt-8 border-t border-primary/20 text-center">
           <p className="font-rajdhani text-foreground/60">
-            © 2024 Alex Chen - Salesforce Developer Portfolio. All rights reserved.
+            © {new Date().getFullYear()} {personalInfo.name} - Salesforce Developer Portfolio. All rights reserved.
           </p>
           <p className="font-orbitron text-xs text-primary/60 mt-2">
-            FUTURE_TECH_SPECIALIST.v2024
+            SALESFORCE_DEV.v{new Date().getFullYear()}
           </p>
         </div>
       </div>
