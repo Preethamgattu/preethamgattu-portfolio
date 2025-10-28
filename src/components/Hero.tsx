@@ -1,19 +1,18 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  
-  const phrases = [
+
+  const phrases = useMemo(() => [
     'Salesforce Developer',
     'Lightning Expert',
     'Apex Architect',
     'Flow Builder',
     'CRM Specialist'
-  ];
-  
+  ], []);
+
   useEffect(() => {
     const currentPhrase = phrases[currentIndex];
     const timeout = setTimeout(() => {
@@ -86,8 +85,13 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center cursor-pointer hover:border-accent transition-colors duration-300" onClick={() => scrollToSection('skills')}>
+        <div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+          onClick={() => scrollToSection('skills')}
+          role="button"
+          aria-label="Scroll to skills section"
+        >
+          <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center cursor-pointer hover:border-accent transition-colors duration-300">
             <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>

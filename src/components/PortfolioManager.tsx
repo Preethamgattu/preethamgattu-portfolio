@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -79,12 +79,7 @@ const PortfolioManager: React.FC = () => {
   const [editingPersonalInfo, setEditingPersonalInfo] = useState(false);
   const { toast } = useToast();
 
-  // Simulate Salesforce data loading
-  useEffect(() => {
-    loadPortfolioData();
-  }, []);
-
-  const loadPortfolioData = async () => {
+  const loadPortfolioData = useCallback(async () => {
     try {
       setLoading(true);
       // Simulate API call to Salesforce Apex controller
@@ -170,7 +165,12 @@ const PortfolioManager: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
+
+  // Simulate Salesforce data loading
+  useEffect(() => {
+    loadPortfolioData();
+  }, [loadPortfolioData]);
 
   const savePersonalInfo = async (updatedInfo: PersonalInfo) => {
     try {

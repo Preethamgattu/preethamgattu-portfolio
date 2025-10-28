@@ -42,7 +42,7 @@ const Skills = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [technicalSkills]);
 
   return (
     <section id="skills" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
